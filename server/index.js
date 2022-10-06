@@ -13,13 +13,6 @@ app.use(express.urlencoded({extended:true}));
 
 //setup simple routes to check whether the server is runnin or not
 
-app.get("/firstroute",(req,res)=>{
-    console.log("yes this is inside the first route");
-    //similar to js objects u can define own properties
-    res.json({
-        status:"yes this is inside the first route"
-    })
-})
 
 
 
