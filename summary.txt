@@ -1,0 +1,23 @@
+this summary is going to hold the basic overview and learning of the process building the real time chat application with node and 
+i will also be revising some the things i already have done
+
+
+
+//first talk about the protocol 
+http protocol is the protocol used for normal client server connection which is connection per request 
+on every request there is a single task being perfromed and response is send back to the client single channel connection is only established
+
+
+//but for a real time application need to updata cleint from both side for that dual connection needs to be established 
+a full duplex protocol needs to be established 
+the connection is one time and is not terminated till either of the party that is cleint or server disconnects 
+
+
+
+//for further information 
+https://www.geeksforgeeks.org/what-is-web-socket-and-how-it-is-different-from-the-http/
+
+
+//socket io is the library we are going to use rather than pure websockets because it is easier and also socket io is build upon web sockets
+
+
