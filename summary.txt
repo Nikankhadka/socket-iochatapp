@@ -3,6 +3,100 @@ i will also be revising some the things i already have done
 
 
 
+//while setting up the application i revised some of the basic things i had missed 
+1.when registering a user defined middle ware function always pass in req res next as parametrs to flow the program execution from 
+midlle ware to the main request handler or the api request is going to hold 
+
+2.when setting up routes always export router instance without curly braces module.exports=router
+
+3.when  defining the schema for the collection if the property is defined unique and same data is passed then 
+a false is retuned by the function
+
+4.when a collection is empty and find function runs to search the documnets the timeout error is produced 
+
+
+// for passpot the done in the iniial callback and veification function 
+1.the user passed into the done is stored in the req.user 
+2. then serialize user function will recieve the user and done by fethcing the data from the req.user to req.session.passport.user
+3.deserialze user function is setup as a middle ware function which is only called if theere is session id then access the session data 
+req.session.passport.user attach the value back to req.user
+
+4. setup user defined middle ware function to check the req.user then give acess to the main request handler
+
+
+//to completely get rid of session ad use token strat keep session false in middle ware then 
+1.do not have serialize and deseriliE user function 
+2.setup basic startegy like before which when done then req.user will contain the necessary user data 
+3.using that generate token in controller for local ,facebook,and google 
+3.setup middle ware to extract verify token and data 
+4.try to implement access and refresh token with jwt 
+
+
+//since we are not using session for authentication it can be used for other normal pupose such as cart make sure 
+not have any confidential information 
+
+1.to initailize session just modiy the session object req.session.newvalue=value
+2.as it is modified the session id is stored in cookie and passed in client side .make sure to give credential access from clietn and server
+3.session id can be stored in http only cookie as it is only acessible from server modify sessions cookie property
+
+//even if we want to implement session its ok better to pair with redis as caching memory as it is faster
+
+
+
+//concept of use of access token and refresh token and how the practice of using token is properly initialized 
+
+1.access token: it is jwt token which last for very less time and can only e used to access the protected api endpoints 
+2.refresh token:its is also a jwt token which last for longer period of time which is basically used to refresh the access token,and also verify the user for login crdential 
+
+the standard practice where there token are used togeher are:
+
+1.on login both access token and refresh token are generated and save at the cookies 
+2.the middleware to verify user checks the refresh  token while different middle ware needs to be setup for the protected routes which only takes in access token 
+
+3. the main use case of seperating and using token is so that if hacker gets access of access token they can get access to  data 
+to avoid that access token has short time even if the hacker gets they might not be able to acess it 
+
+4. the other case is if hacker gets the refresh token which is setup to last longer they can have access to acess token 
+with which they can extract any information 
+
+//company perform something called refreshing the refresh token 
+
+basically on epiry of access token or on refresh when request is send to fetch new access token a new refresh token will also be send back 
+basically if hacker has refresh token1 and access token 1 on refresh both token will be updated leavin hacker nothing
+
+
+
+
+
+
+
+
+//we will also learn about passport jwt strategy for thta we need to setup the local startegy insated of serializeing;
+we attac user data in http only cookie and pass in the client 
+
+
+5 setup a middle ware startegy for jwt to extract and verify the token data in protected routes and end points
+
+  //when setting cookie if it is http only cookie it is not seen on client cookie list 
+  //so http only cookie can be accessed by server only   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //first talk about the protocol 
 http protocol is the protocol used for normal client server connection which is connection per request 
 on every request there is a single task being perfromed and response is send back to the client single channel connection is only established
